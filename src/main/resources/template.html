@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<meta name="author" content="Benjamin Winterberg">
+<meta name="description"
+	content="Discover all new Java features from the latest JDK 1.8 API">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Java SE 8 API Explorer</title>
+
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<style type="text/css">
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	/* Margin bottom by footer height */
+	margin-bottom: 100px;
+}
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 100px;
+	background-color: #f5f5f5;
+	font-size: 11px;
+	padding-top: 10px;
+}
+
+.navbar {
+	opacity: 0.95;
+	box-shadow: inset 0 -1px 0 #FFF;
+}
+
+.navbar .container-fluid {
+	position: relative;
+}
+
+body {
+	padding-top: 80px;
+}
+
+.navbar-brand {
+	margin-left: -20px;
+}
+
+.navbar-link {
+	font-size: 18px;
+	margin-left: 10px;
+}
+
+#filter {
+	margin-bottom: 20px;
+}
+
+#details>div {
+	display: none;
+}
+
+.panel-info .panel-title {
+	font-size: 14px;
+}
+
+.panel-body {
+	position: relative;
+}
+
+.javadoc {
+	position: absolute;
+	right: 10px;
+	top: 15px;
+}
+
+.panel-body code {
+	white-space: normal;
+	background-color: transparent;
+	border: none;
+	color: inherit;
+}
+
+.panel-body pre {
+	background-color: transparent;
+	border: 0;
+	padding: 2px 4px;
+	margin-bottom: 0;
+}
+
+.panel-title {
+	position: relative;
+}
+
+.panel-title .text-muted {
+	position: absolute;
+	right: 0;
+	top: 2px;
+	font-size: 12px;
+}
+
+#back {
+	right: 15px;
+	top: 8px;
+	position: absolute;
+	display: none;
+	margin: 0;
+	border: 0;
+}
+
+#subtitle {
+	display: none;
+}
+
+#results {
+	display: none;
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="http://winterbe.com"
+				title="Benjamin Winterberg"> <i class="fa fa-home"></i> <span
+				class="hidden-xs">winterbe.com</span>
+			</a> <span class="navbar-brand" style="color: #AAA;">/</span> <a
+				class="navbar-brand" href="#" data-target="main">java8-explorer</a>
+
+			<div id="subtitle" class="hidden-xs">
+				<span class="navbar-brand" style="color: #AAA;">/</span> <span
+					class="navbar-brand text"></span>
+			</div>
+
+			<form id="back">
+				<button class="btn btn-default" data-target="main"
+					title="Back to Overview">
+					<i class="fa fa-chevron-left"></i> Back
+				</button>
+			</form>
+
+			<p id="social" class="navbar-text navbar-right">
+				<a
+					href="https://twitter.com/intent/tweet?url=http://winterbe.com/projects/java8-explorer/&amp;text=Java 8 API Explorer&amp;via=benontherun"
+					target="_blank" class="navbar-link" title="Share Link on Twitter">
+					<i class="fa fa-twitter"></i>
+				</a> <a
+					href="https://plus.google.com/share?url=http://winterbe.com/projects/java8-explorer/"
+					target="_blank" class="navbar-link" title="Share Link on Google+">
+					<i class="fa fa-google-plus"></i>
+				</a> <a
+					href="https://www.facebook.com/sharer/sharer.php?u=http://winterbe.com/projects/java8-explorer/"
+					target="_blank" class="navbar-link" title="Share Link on Facebook">
+					<i class="fa fa-facebook"></i>
+				</a> <a href="https://github.com/winterbe/java8-explorer"
+					target="_blank" class="navbar-link" title="Fork Project on GitHub">
+					<i class="fa fa-github"></i>
+				</a>
+			</p>
+		</div>
+	</nav>
+
+	<div id="results" class="container">
+		<form id="filter" class="form-inline" role="form"
+			style="text-align: center;">
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"> <i class="fa fa-search"></i>
+				</span> <input id="search-input" type="text" class="form-control"
+					placeholder="Search for new Java 8 API features..." autofocus>
+				<span class="input-group-addon" title="New types only"> <input
+					id="new-types-only" type="checkbox">
+				</span>
+			</div>
+		</form>
+		<div id="content-list" class="list-group"></div>
+	</div>
+	<div id="details" class="container"></div>
+
+	<div id="footer">
+		<div class="container">
+			<p class="text-success">
+				Found an interesting new class? Contact me on <a
+					href="https://twitter.com/benontherun">Twitter</a>, <a
+					href="https://plus.google.com/105973259367211176218/posts"
+					rel="author">Google+</a> or <a href="https://github.com/winterbe">GitHub</a>.
+				I would like to hear your feedback!
+			</p>
+
+			<p class="text-muted">
+				This page shows all new types and methods from the new Java Version
+				8. The content is based on the <a
+					href="http://docs.oracle.com/javase/8/docs/api/">Java™ Platform
+					Standard Ed. 8 API</a> released on 2014-03-17 (Copyright © 1993, 2014,
+				<a href="http://www.oracle.com/">Oracle</a> and/or its affiliates).
+			</p>
+		</div>
+	</div>
+
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			var currentTop = 0;
+			var showClass = function(className) {
+				var id = className.replace(/\./g, '');
+				var $detailView = $('#' + id);
+				showDetailView($detailView);
+			};
+			var showDetailView = function($detailView) {
+				currentTop = $(window).scrollTop();
+				var name = $detailView.data('name');
+				var className = $detailView.find('.cname').text();
+				$('#results').hide();
+				$('#subtitle').show().find('.text').text(name);
+				$detailView.show();
+				$('#social').hide();
+				$('#back').show();
+				window.scrollTo(0, 0);
+				if (window.history.pushState) {
+					window.history.pushState(className, 'class', '?class='
+							+ className);
+				}
+			};
+			var showMainPage = function() {
+				if (window.history.pushState) {
+					window.history.pushState('search', 'class', '?');
+				}
+				var $results = $('#results');
+				if ($results.is(':visible')) {
+					window.scrollTo(0, 0);
+					$('#search-input').trigger('focus');
+					return;
+				}
+				$('#subtitle').hide().find('.text').text('');
+				$('#details').find('.detail-view').hide();
+				$results.show();
+				$('#back').hide();
+				$('#social').show();
+				window.scrollTo(0, currentTop);
+			};
+			$('body').on('click', 'a[href="#"],button', function(ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
+			}).on('click', '[data-target="main"]', showMainPage);
+			$('#results').on('click', 'a[data-target-id]', function() {
+				$('#results').find('a.active').removeClass('active');
+				$(this).addClass('active');
+				var targetId = $(this).data('targetId');
+				var $detailView = $('#' + targetId);
+				showDetailView($detailView);
+			});
+			var applyFilter = function() {
+				var onlyNew = $('#new-types-only').is(':checked');
+				var nameFilter = $('#search-input').val() || '';
+				nameFilter = nameFilter.toLowerCase();
+				$('#content-list').find('.list-group-item').each(function() {
+					var text = $(this).text() || '';
+					text = text.toLowerCase();
+					if (nameFilter && text.indexOf(nameFilter) < 0) {
+						$(this).hide();
+						return;
+					}
+					if (onlyNew && $(this).find('.label').length === 0) {
+						$(this).hide();
+						return;
+					}
+					$(this).show();
+				});
+			};
+			$('#search-input').on('input', _.debounce(applyFilter, 250));
+			$('#new-types-only').on('change', applyFilter);
+			var className = window.location.href.toString().split('?class=')[1];
+			if (className) {
+				showClass(className);
+			} else {
+				$('#results').show();
+			}
+		});
+	</script>
+
+</body>
+</html>

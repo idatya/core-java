@@ -1,4 +1,4 @@
-package com.sh.java6.ufs;
+package com.sh.java6.file;
 
 import java.io.File;
 /**
