@@ -5,7 +5,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Comparator;
-
+/*
+ * Unlike Comparable, Comparator is external to the element type we are comparing. 
+ * It’s a separate class. We create multiple separate classes (that implement Comparator) to compare by different members.
+ * A comparator object is capable of comparing two different objects. The class is not comparing its instances, but some other class’s instances.
+ * The Comparator interface defines a compare(arg1, arg2) method with two arguments which represent compared objects and works similarly to the Comparable.compareTo() method.
+ */
 class Employee {
 
 	// instance member variables
@@ -98,5 +103,7 @@ class CustomerComparator {
 		for (Employee customer : al) {
 			System.out.println(customer);
 		}
+		
+		
 	}
 }

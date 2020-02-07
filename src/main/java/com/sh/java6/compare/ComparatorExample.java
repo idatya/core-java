@@ -13,6 +13,31 @@ class Student {
 		this.rollno = rollno;
 		this.name = name;
 		this.address = address;
+
+	}
+
+	public int getRollno() {
+		return rollno;
+	}
+
+	public void setRollno(int rollno) {
+		this.rollno = rollno;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	// Used to print Student details in main()
@@ -46,14 +71,21 @@ public class ComparatorExample {
 		for (int i = 0; i < ar.size(); i++)
 			System.out.println(ar.get(i));
 
+		/*
+		 * Comparator<Student> byRollno = (Student s1, Student s2) -> s1.getRollno() -
+		 * s2.getRollno();
+		 */
+
 		System.out.println("\nSorted by rollno");
 		Collections.sort(ar, new Sortbyroll());
 		for (int i = 0; i < ar.size(); i++)
 			System.out.println(ar.get(i));
 
 		System.out.println("\nSorted by name");
-		Collections.sort(ar, new Sortbyname());
-		for (int i = 0; i < ar.size(); i++)
-			System.out.println(ar.get(i));
+		/*
+		 * Collections.sort(ar, new Sortbyname()); for (int i = 0; i < ar.size(); i++)
+		 * System.out.println(ar.get(i));
+		 */
+		Comparator<Student> byName = Comparator.comparing(Student::getName);
 	}
 }

@@ -13,10 +13,9 @@ public class ExceptionHandling {
 			return 2;
 		} finally {
 			System.out.println("finally");
-			return 3; //always retunr this line : no matter exception occur or not
+			return 3; //always return this line : no matter exception occur or not
 		}
 	
-
 	}
 
 	public static void main(String[] args) {
