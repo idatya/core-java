@@ -12,7 +12,9 @@ public class Main {
         System.out.println("hi");
         System.out.println(new Date());
         System.out.println("hello \n" + Calendar.getInstance().getTime());
-
+        String age;
+        String Age;
+        
         String str = ",15,52,";
 		System.out.println(str.replaceAll("^,", ""));
 		System.out.println(str.replaceAll("^,", "").replaceAll(",$", ""));
